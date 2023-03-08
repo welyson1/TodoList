@@ -52,13 +52,13 @@ Use o SQL Editor para criar a tabela
 Pegue as credenciais em Project Settings > Database
 
 Preencha a função abaixo com as credenciais
-```
+```Python
 self.conn = psycopg2.connect(
   # Coloque as credenciais do banco de dados postgres aqui
-  host="db.dfmqkzxfikspeqlukshk.supabase.co",
+  host="host",
   database="postgres",
   user="postgres",
-  password="nfUzzkjuxmB4bXdK"
+  password="senha"
 )
 ```
     
