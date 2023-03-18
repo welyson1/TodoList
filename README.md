@@ -10,18 +10,15 @@ O projeto é uma lista de tarefas que permite ao usuário adicionar e visualizar
 
 ![App Screenshot](https://raw.githubusercontent.com/welyson1/TodoList/493108bba3ba5b50f7db7abe70cd2ed95a657f24/img/Tela.png)
 
-## Instalação bando de dados offline
-Instale python3+
-
-Clone este repositório
-
-Instale as bibliotecas necessarias
-
+## Instalação banco de dados offline
+1. Execute o comando abaixo no terminal
 ```bash
   pip install psycopg2
 ```
 
-Instale o postgreSQL e crie um banco de dados e a tabela abaixo
+2. Instale o PgAdmin
+
+3. Crie um banco de dados e a tabela com a query abaixo
 
 ```SQL
   CREATE TABLE todo_list (
@@ -33,12 +30,12 @@ Instale o postgreSQL e crie um banco de dados e a tabela abaixo
   );
 ```
 
-## Instalação bando de dados online
-Crie uma conta no Supabase em https://supabase.com/
+## Instalação banco de dados online
+1. Crie uma conta no Supabase em https://supabase.com/
 
-Crie um projeto
+2. Crie um projeto
 
-Use o SQL Editor para criar a tabela
+3. Use o SQL Editor para criar a tabela
 ```SQL
   CREATE TABLE todo_list (
     id SERIAL PRIMARY KEY,
@@ -49,9 +46,9 @@ Use o SQL Editor para criar a tabela
   );
 ```
 
-Pegue as credenciais em Project Settings > Database
+4. Pegue as credenciais em Project Settings > Database
 
-Preencha a função abaixo com as credenciais
+5. Preencha a função abaixo com as credenciais
 ```Python
 self.conn = psycopg2.connect(
   # Coloque as credenciais do banco de dados postgres aqui
