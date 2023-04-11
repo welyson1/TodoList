@@ -57,6 +57,9 @@ class TaskApp(tk.Frame):
     self.refresh_button = tk.Button(self, text="Atualizar Lista", bg="blue", fg="white", font=("Arial", 14), command=self.refresh_list, bd=3, relief="groove")
     self.refresh_button.grid(row=5, column=1, padx=10, pady=10)
 
+    self.delete_button = tk.Button(self, text="Apagar Tarefa", bg="red", fg="white", font=("Arial", 14), command=self.delete_task, bd=3, relief="groove")
+    self.delete_button.grid(row=6, column=1, padx=10, pady=10)
+
   # Definir cursor para o banco de dados
     self.cursor = self.conn.cursor()
 
@@ -97,6 +100,23 @@ class TaskApp(tk.Frame):
 
     # Atualizar lista
     self.refresh_list()
+
+  def delete_task(self):
+      # Obter a tarefa selecionada na lista
+      selection = self.task_list.curselection()
+      if not selection:
+          return
+      task = self.task_list.get(selection[0])
+      task_name = task.split(": ")[1].split(" (")[0]
+
+      # Excluir a tarefa do banco de dados
+      cursor = self.conn.cursor()
+      cursor.execute("DELETE FROM todo_list WHERE task_name = %s", (task_name,))
+      self.conn.commit()
+      cursor.close()
+
+      # Atualizar a lista
+      self.refresh_list()
 
 root = tk.Tk()
 app = TaskApp(master=root)
