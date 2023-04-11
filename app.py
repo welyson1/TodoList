@@ -30,35 +30,35 @@ class TaskApp(tk.Frame):
 
   def create_widgets(self):     
     # Criar widgets
-    self.task_label = tk.Label(self, text="Tarefa:", bg="white", fg="black", font=("Arial", 14))
-    self.task_label.grid(row=0, column=0, padx=10, pady=10)
+    self.task_label = tk.Label(self, text="Tarefa:", fg="black", font=("Arial", 14))
+    self.task_label.grid(row=0, column=0, padx=10, pady=10, sticky="E")
 
     self.task_entry = tk.Entry(self, bg="lightgray", fg="black", font=("Arial", 14), bd=3, relief="groove")
     self.task_entry.grid(row=0, column=1, padx=10, pady=10)
 
-    self.date_label = tk.Label(self, text="Data de Vencimento (YYYY-MM-DD):", bg="white", fg="black", font=("Arial", 14))
-    self.date_label.grid(row=1, column=0, padx=10, pady=10)
+    self.date_label = tk.Label(self, text="Data de Vencimento \n(YYYY-MM-DD):", fg="black", font=("Arial", 14))
+    self.date_label.grid(row=1, column=0, padx=10, pady=10, sticky="E")
 
     self.date_entry = tk.Entry(self, bg="lightgray", fg="black", font=("Arial", 14), bd=3, relief="groove")
     self.date_entry.grid(row=1, column=1, padx=10, pady=10)
 
-    self.priority_label = tk.Label(self, text="Prioridade (1-5):", bg="white", fg="black", font=("Arial", 14))
-    self.priority_label.grid(row=2, column=0, padx=10, pady=10)
+    self.priority_label = tk.Label(self, text="Prioridade (1-5):", fg="black", font=("Arial", 14))
+    self.priority_label.grid(row=2, column=0, padx=10, pady=10, sticky="E")
 
     self.priority_entry = tk.Entry(self, bg="lightgray", fg="black", font=("Arial", 14), bd=3, relief="groove")
     self.priority_entry.grid(row=2, column=1, padx=10, pady=10)
 
-    self.add_button = tk.Button(self, text="Adicionar Tarefa", bg="green", fg="white", font=("Arial", 14), command=self.add_task, bd=3, relief="groove")
-    self.add_button.grid(row=3, column=1, padx=10, pady=10)
+    self.add_button = tk.Button(self, text="Adicionar Tarefa ➕", bg="green", fg="white", font=("Arial", 14), command=self.add_task, bd=3, relief="groove")
+    self.add_button.grid(row=3, column=1, padx=10, pady=10, sticky="EW")
 
     self.task_list = tk.Listbox(self, bg="lightgray", font=("Arial", 14), bd=3, relief="groove")
-    self.task_list.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
+    self.task_list.grid(row=4, column=0, columnspan=2, padx=10, pady=10, sticky="EW")
 
-    self.refresh_button = tk.Button(self, text="Atualizar Lista", bg="blue", fg="white", font=("Arial", 14), command=self.refresh_list, bd=3, relief="groove")
-    self.refresh_button.grid(row=5, column=1, padx=10, pady=10)
+    self.refresh_button = tk.Button(self, text="Atualizar Lista 🔄️", bg="blue", fg="white", font=("Arial", 14), command=self.refresh_list, bd=3, relief="groove")
+    self.refresh_button.grid(row=5, column=0, padx=10, pady=10, sticky="EW")
 
-    self.delete_button = tk.Button(self, text="Apagar Tarefa", bg="red", fg="white", font=("Arial", 14), command=self.delete_task, bd=3, relief="groove")
-    self.delete_button.grid(row=6, column=1, padx=10, pady=10)
+    self.delete_button = tk.Button(self, text="Apagar Tarefa ❌", bg="red", fg="white", font=("Arial", 14), command=self.delete_task, bd=3, relief="groove")
+    self.delete_button.grid(row=5, column=1, padx=10, pady=10, sticky="EW")
 
   # Definir cursor para o banco de dados
     self.cursor = self.conn.cursor()
