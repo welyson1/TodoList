@@ -63,11 +63,14 @@ class TaskApp(tk.Frame):
     self.task_list.grid(row=4, column=0, columnspan=2, padx=10, pady=10, sticky="EW")
     self.task_list.bind("<Double-Button-1>", self.show_task_info)
 
-    self.refresh_button = tk.Button(self, text="Atualizar Lista 🔄️", bg="blue", fg="white", font=("Arial", 14), command=self.refresh_list, bd=3, relief="groove")
-    self.refresh_button.grid(row=3, column=0, padx=10, pady=10, sticky="EW")
+    # self.refresh_button = tk.Button(self, text="Atualizar Lista 🔄️", bg="blue", fg="white", font=("Arial", 14), command=self.refresh_list, bd=3, relief="groove")
+    # self.refresh_button.grid(row=3, column=0, padx=10, pady=10, sticky="EW")
 
     self.delete_button = tk.Button(self, text="Apagar Tarefa ❌", bg="red", fg="white", font=("Arial", 14), command=self.delete_task, bd=3, relief="groove")
-    self.delete_button.grid(row=5, column=1, padx=10, pady=10, sticky="EW")
+    self.delete_button.grid(row=3, column=0, padx=10, pady=10, sticky="EW")
+
+    self.save_button = tk.Button(self, text="Salvar alteração 💾", bg="blue", fg="white", font=("Arial", 14), command=self.add_task, bd=3, relief="groove")
+    self.save_button.grid(row=5, column=1, padx=10, pady=10, sticky="EW")
 
   # Definir cursor para o banco de dados
     self.cursor = self.conn.cursor()
