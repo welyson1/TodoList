@@ -1,5 +1,6 @@
 import tkinter as tk
 import psycopg2
+from tkinter import messagebox
 
 # Para criar a tabela uso o codigo abaixo
 # CREATE TABLE todo_list (
@@ -60,6 +61,7 @@ class TaskApp(tk.Frame):
 
     self.task_list = tk.Listbox(self, bg="lightgray", font=("Arial", 14), bd=3, relief="groove")
     self.task_list.grid(row=4, column=0, columnspan=2, padx=10, pady=10, sticky="EW")
+    self.task_list.bind("<Double-Button-1>", self.show_task_info)
 
     self.refresh_button = tk.Button(self, text="Atualizar Lista 🔄️", bg="blue", fg="white", font=("Arial", 14), command=self.refresh_list, bd=3, relief="groove")
     self.refresh_button.grid(row=3, column=0, padx=10, pady=10, sticky="EW")
@@ -69,6 +71,17 @@ class TaskApp(tk.Frame):
 
   # Definir cursor para o banco de dados
     self.cursor = self.conn.cursor()
+    
+  def show_task_info(self, event):
+    selected_task = self.task_list.get(tk.ACTIVE)
+    task_info = selected_task.split(":")[1].strip()
+    task_date = selected_task.split(":")[0].split(" ")[1]
+    task_priority = selected_task.split(" ")[0]
+    messagebox.showinfo(
+      title="Informações da Tarefa",
+      message=f"Prioridade: {task_priority}\nData de Vencimento: {task_date}\nTarefa: {task_info}"
+    )
+    
 
   def refresh_list(self):    
     # Limpar lista atual
