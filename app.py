@@ -53,7 +53,7 @@ class TaskApp(tk.Frame):
 
     self.id_entry = tk.Entry(self, show="*", width=15)
 
-    self.add_button = tk.Button(self, text="Adicionar Tarefa ➕", bg="green", fg="white", font=("Arial", 14), command=self.add_task, bd=3, relief="groove")
+    self.add_button = tk.Button(self, text="Adicionar Tarefa ➕", bg="#3CB371", fg="white", font=("Arial", 14), command=self.add_task, bd=3, relief="groove")
     self.add_button.grid(row=3, column=1, padx=10, pady=10, sticky="EW")
 
     self.edit_button = tk.Button(self, text="Editar Tarefa 🖊️", bg="orange", fg="white", font=("Arial", 14), command=self.edit_task, bd=3, relief="groove")
@@ -66,10 +66,10 @@ class TaskApp(tk.Frame):
     # self.refresh_button = tk.Button(self, text="Atualizar Lista 🔄️", bg="blue", fg="white", font=("Arial", 14), command=self.refresh_list, bd=3, relief="groove")
     # self.refresh_button.grid(row=3, column=0, padx=10, pady=10, sticky="EW")
 
-    self.delete_button = tk.Button(self, text="Apagar Tarefa ❌", bg="red", fg="white", font=("Arial", 14), command=self.delete_task, bd=3, relief="groove")
+    self.delete_button = tk.Button(self, text="Apagar Tarefa ❌", bg="#B22222", fg="white", font=("Arial", 14), command=self.delete_task, bd=3, relief="groove")
     self.delete_button.grid(row=3, column=0, padx=10, pady=10, sticky="EW")
 
-    self.save_button = tk.Button(self, text="Salvar alteração 💾", bg="blue", fg="white", font=("Arial", 14), command=self.add_task, bd=3, relief="groove")
+    self.save_button = tk.Button(self, text="Salvar alteração 💾", bg="#1E90FF", fg="white", font=("Arial", 14), command=self.add_task, bd=3, relief="groove")
     self.save_button.grid(row=5, column=1, padx=10, pady=10, sticky="EW")
 
   # Definir cursor para o banco de dados
