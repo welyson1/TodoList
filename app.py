@@ -1,7 +1,6 @@
 import tkinter as tk
 import psycopg2
 from tkinter import messagebox
-import subprocess
 
 # Para criar a tabela uso o codigo abaixo
 # CREATE TABLE todo_list (
@@ -188,15 +187,6 @@ class TaskApp(tk.Frame):
       # Atualizar a lista
       self.refresh_list()
 
-if __name__ == '__main__':
-    # Comando para ocultar o prompt de comando
-    startupinfo = subprocess.STARTUPINFO()
-    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
-
-    root = tk.Tk()
-    app = TaskApp(master=root)
-
-    # Ocultar o prompt de comando após a criação da janela Tkinter
-    subprocess.Popen(["pythonw", __file__], startupinfo=startupinfo)
-
-    app.mainloop()
+root = tk.Tk()
+app = TaskApp(master=root)
+app.mainloop()
