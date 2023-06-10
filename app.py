@@ -21,10 +21,10 @@ class TaskApp(tk.Frame):
 
     self.conn = psycopg2.connect(
       # Coloque as credenciais do banco de dados postgres aqui
-      host="db.tkzjfztggfwbvhonxqxq.supabase.co",
+      host="db.dfmqkzxfikspeqlukshk.supabase.co",
       database="postgres",
       user="postgres",
-      password="nfUzzkjuxmB4bXdK"
+      password="SYt5A0lRZ7d9LgCV"
     )
     self.cursor = self.conn.cursor()       
     self.create_widgets()
