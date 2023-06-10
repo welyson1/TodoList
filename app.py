@@ -1,6 +1,8 @@
 import tkinter as tk
 import psycopg2
 from tkinter import messagebox
+import win32gui
+import win32con
 
 # Para criar a tabela uso o codigo abaixo
 # CREATE TABLE todo_list (
@@ -10,6 +12,12 @@ from tkinter import messagebox
 #   priority INT,
 #   completed BOOLEAN DEFAULT false
 # );
+
+# Obter o identificador da janela do console
+console_window = win32gui.GetForegroundWindow()
+
+# Ocultar a janela do console
+win32gui.ShowWindow(console_window, win32con.SW_HIDE)
 
 class TaskApp(tk.Frame):
   def __init__(self, master=None):
