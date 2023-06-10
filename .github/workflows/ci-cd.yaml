@@ -28,6 +28,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: TodoList
-          path: executavel/main.exe
+          path: executavel/
 
 
