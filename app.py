@@ -1,8 +1,7 @@
 import tkinter as tk
 import psycopg2
 from tkinter import messagebox
-import win32gui
-import win32con
+import subprocess
 
 # Para criar a tabela uso o codigo abaixo
 # CREATE TABLE todo_list (
@@ -12,10 +11,6 @@ import win32con
 #   priority INT,
 #   completed BOOLEAN DEFAULT false
 # );
-
-def hide_console_window():
-    console_window = win32gui.GetForegroundWindow()
-    win32gui.ShowWindow(console_window, win32con.SW_HIDE)
 
 class TaskApp(tk.Frame):
   
@@ -194,8 +189,14 @@ class TaskApp(tk.Frame):
       self.refresh_list()
 
 if __name__ == '__main__':
-  hide_console_window()
+    # Comando para ocultar o prompt de comando
+    startupinfo = subprocess.STARTUPINFO()
+    startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
-  root = tk.Tk()
-  app = TaskApp(master=root)
-  app.mainloop()
+    root = tk.Tk()
+    app = TaskApp(master=root)
+
+    # Ocultar o prompt de comando após a criação da janela Tkinter
+    subprocess.Popen(["pythonw", __file__], startupinfo=startupinfo)
+
+    app.mainloop()
