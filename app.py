@@ -13,13 +13,12 @@ import win32con
 #   completed BOOLEAN DEFAULT false
 # );
 
-# Obter o identificador da janela do console
-console_window = win32gui.GetForegroundWindow()
-
-# Ocultar a janela do console
-win32gui.ShowWindow(console_window, win32con.SW_HIDE)
+def hide_console_window():
+    console_window = win32gui.GetForegroundWindow()
+    win32gui.ShowWindow(console_window, win32con.SW_HIDE)
 
 class TaskApp(tk.Frame):
+  
   def __init__(self, master=None):
     super().__init__(master)
     self.master = master
@@ -92,7 +91,6 @@ class TaskApp(tk.Frame):
       title="Informações da Tarefa",
       message=f"Prioridade: {task_priority}\nData de Vencimento: {task_date}\nTarefa: {task_info}"
     )
-    
 
   def refresh_list(self):    
     # Limpar lista atual
@@ -148,6 +146,7 @@ class TaskApp(tk.Frame):
     self.refresh_list()
 
     # Editar Tarefa
+  
   def edit_task(self):
       selection = self.task_list.curselection()
       if not selection:
@@ -194,6 +193,7 @@ class TaskApp(tk.Frame):
       # Atualizar a lista
       self.refresh_list()
 
+hide_console_window()
 root = tk.Tk()
 app = TaskApp(master=root)
 app.mainloop()
