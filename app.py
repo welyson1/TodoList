@@ -193,7 +193,9 @@ class TaskApp(tk.Frame):
       # Atualizar a lista
       self.refresh_list()
 
-hide_console_window()
-root = tk.Tk()
-app = TaskApp(master=root)
-app.mainloop()
+if __name__ == '__main__':
+  hide_console_window()
+
+  root = tk.Tk()
+  app = TaskApp(master=root)
+  app.mainloop()
