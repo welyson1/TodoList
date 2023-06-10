@@ -22,7 +22,7 @@ jobs:
         run: pip install -r requirements.txt
           
       - name: Build executable
-        run: pyinstaller --distpath exe/ app.py
+        run: pyinstaller --onefile --distpath exe/ app.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
