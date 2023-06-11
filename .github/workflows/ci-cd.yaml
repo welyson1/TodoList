@@ -25,7 +25,7 @@ jobs:
         run: pyinstaller --onefile --distpath exe/ app.py
 
       - name: Build Docker image
-        run: docker build -t TodoList .
+        run: docker build -t todolist .
 
       - name: Log in to Docker registry
         uses: docker/login-action@v1
@@ -35,7 +35,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker image
-        run: docker push TodoList
+        run: docker push todolist
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
