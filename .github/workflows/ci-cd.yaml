@@ -20,7 +20,10 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-          
+
+      - name: Run tests
+        run: python -m unittest discover
+
       - name: Build executable
         run: pyinstaller --onefile --distpath exe/ app.py
 
@@ -29,5 +32,6 @@ jobs:
         with:
           name: TodoList
           path: exe/app.exe
+
 
 

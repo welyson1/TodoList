@@ -64,9 +64,6 @@ class TaskApp(tk.Frame):
     self.task_list.grid(row=4, column=0, columnspan=2, padx=10, pady=10, sticky="EW")
     self.task_list.bind("<Double-Button-1>", self.show_task_info)
 
-    # self.refresh_button = tk.Button(self, text="Atualizar Lista 🔄️", bg="blue", fg="white", font=("Arial", 14), command=self.refresh_list, bd=3, relief="groove")
-    # self.refresh_button.grid(row=3, column=0, padx=10, pady=10, sticky="EW")
-
     self.delete_button = tk.Button(self, text="Apagar Tarefa ❌", bg="#B22222", fg="white", font=("Arial", 14), command=self.delete_task, bd=3, relief="groove")
     self.delete_button.grid(row=3, column=0, padx=10, pady=10, sticky="EW")
 
@@ -142,33 +139,38 @@ class TaskApp(tk.Frame):
     # Editar Tarefa
   
   def edit_task(self):
-      selection = self.task_list.curselection()
-      if not selection:
-          return
-      task = self.task_list.get(selection[0])
-      task_name = task.split(": ")[1].split(" (")[0]
+    selection = self.task_list.curselection()
+    if not selection:
+      return
+    task = self.task_list.get(selection[0])
+    task_name = task.split(": ")[1].split(" (")[0]
 
-      # Excluir a tarefa do banco de dados
-      cursor = self.conn.cursor()
-      cursor.execute("SELECT * FROM todo_list WHERE task_name = %s", (task_name,))
-      
-      rows = cursor.fetchall()
-      cursor.close()
+    # Limpar os campos de texto antes de preenchê-los com os novos valores
+    self.id_entry.delete(0, tk.END)
+    self.task_entry.delete(0, tk.END)
+    self.date_entry.delete(0, tk.END)
+    self.priority_entry.delete(0, tk.END)
 
-      for row in rows:
-        id = row[0]
-        task = row[1]
-        due_date = row[2].strftime("%Y-%m-%d")
-        priority = row[3]
-        completed = row[4]
-        
-        self.id_entry.insert(0, id)
-        self.task_entry.insert(0, task)
-        self.date_entry.insert(0, due_date)
-        self.priority_entry.insert(0, priority)
+    # Obter os dados da tarefa do banco de dados
+    cursor = self.conn.cursor()
+    cursor.execute("SELECT * FROM todo_list WHERE task_name = %s", (task_name,))
 
-      # Atualizar a lista
-      self.refresh_list()
+    rows = cursor.fetchall()
+    cursor.close()
+
+    for row in rows:
+      id = row[0]
+      task = row[1]
+      due_date = row[2].strftime("%Y-%m-%d")
+      priority = row[3]
+
+      self.id_entry.insert(0, id)
+      self.task_entry.insert(0, task)
+      self.date_entry.insert(0, due_date)
+      self.priority_entry.insert(0, priority)
+
+    # Atualizar a lista
+    self.refresh_list()
       
   def delete_task(self):
       # Obter a tarefa selecionada na lista
@@ -187,6 +189,10 @@ class TaskApp(tk.Frame):
       # Atualizar a lista
       self.refresh_list()
 
-root = tk.Tk()
-app = TaskApp(master=root)
-app.mainloop()
+def run_app():
+  root = tk.Tk()
+  app = TaskApp(master=root)
+  app.mainloop()
+
+if __name__ == "__main__":
+  run_app()
