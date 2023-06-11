@@ -5,6 +5,7 @@ from unittest.mock import patch
 from tkinter import messagebox
 from tkinter import END
 
+
 from app import TaskApp
 
 class TestTaskApp(unittest.TestCase):
