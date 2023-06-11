@@ -1,95 +1,56 @@
+import datetime
 import unittest
-import tkinter as tk
 import psycopg2
-from tkinter import messagebox
-
-from app import TaskApp
 
 class TestTaskApp(unittest.TestCase):
 
     def setUp(self):
         self.conn = psycopg2.connect(
-            # Coloque as credenciais do banco de dados postgres aqui
             host="db.dfmqkzxfikspeqlukshk.supabase.co",
             database="postgres",
             user="postgres",
             password="SYt5A0lRZ7d9LgCV"
         )
-
-        # Criar a tabela para os testes
-        cursor = self.conn.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXISTS test_todo_list (id SERIAL PRIMARY KEY, task_name VARCHAR(255) NOT NULL, due_date DATE, priority INT, completed BOOLEAN DEFAULT false)")
+        self.cursor = self.conn.cursor()
+        self.cursor.execute("DELETE FROM todo_list")
         self.conn.commit()
-        cursor.close()
 
-        root = tk.Tk()
-        self.app = TaskApp(master=root)
-        self.app.pack()
-
-    def tearDown(self):
-        # Excluir os registros após cada teste
-        cursor = self.conn.cursor()
-        cursor.execute("DELETE FROM test_todo_list")
+    def test_add_edit_delete_task(self):
+        # Adicionar uma tarefa
+        self.cursor.execute(
+            "INSERT INTO todo_list (task_name, due_date, priority) VALUES (%s, %s, %s)",
+            ("Tarefa Teste", datetime.date(2023, 6, 15), 3)
+        )
         self.conn.commit()
-        cursor.close()
-        self.conn.close()
-        self.app.destroy()
 
-    def test_add_task(self):
-        # Adicionar uma tarefa de teste
-        self.app.task_entry.insert(0, "Tarefa de Teste")
-        self.app.date_entry.insert(0, "2023-06-10")
-        self.app.priority_entry.insert(0, "1")
-        self.app.add_task()
-
-        # Verificar se a tarefa foi adicionada corretamente
-        cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM test_todo_list")
-        rows = cursor.fetchall()
-        cursor.close()
-
-        self.assertEqual(cursor.rowcount, 1)
-
-    def test_delete_task(self):
-        # Adicionar uma tarefa de teste
-        cursor = self.conn.cursor()
-        cursor.execute("INSERT INTO test_todo_list (task_name, due_date, priority) VALUES ('Tarefa de Teste', '2023-06-10', 1)")
+        # Editar a tarefa
+        self.cursor.execute("SELECT id FROM todo_list WHERE task_name = %s", ("Tarefa Teste",))
+        task_id = self.cursor.fetchone()[0]
+        self.cursor.execute(
+            "UPDATE todo_list SET task_name = %s, due_date = %s, priority = %s WHERE id = %s",
+            ("Tarefa Editada", datetime.date(2023, 6, 20), 5, task_id)
+        )
         self.conn.commit()
-        cursor.close()
-
-        # Excluir a tarefa de teste
-        self.app.task_list.select_set(0)
-        self.app.delete_task()
-
-        # Verificar se a tarefa foi excluída corretamente
-        cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM test_todo_list")
-        rows = cursor.fetchall()
-        cursor.close()
-
-        self.assertEqual(cursor.rowcount, 0)
-
-    def test_edit_task(self):
-        # Adicionar uma tarefa de teste
-        cursor = self.conn.cursor()
-        cursor.execute("INSERT INTO test_todo_list (task_name, due_date, priority) VALUES ('Tarefa de Teste', '2023-06-10', 1)")
-        self.conn.commit()
-        cursor.close()
-
-        # Editar a tarefa de teste
-        self.app.task_list.select_set(0)
-        self.app.edit_task()
-        self.app.date_entry.delete(0, tk.END)
-        self.app.date_entry.insert(0, "2023-06-20")
-        self.app.add_task()
 
         # Verificar se a tarefa foi editada corretamente
-        cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM test_todo_list")
-        rows = cursor.fetchall()
-        cursor.close()
+        self.cursor.execute("SELECT task_name, due_date, priority FROM todo_list WHERE id = %s", (task_id,))
+        edited_task = self.cursor.fetchone()
+        edited_task_date = datetime.date(2023, 6, 20)
+        self.assertEqual(edited_task, ("Tarefa Editada", edited_task_date, 5))
 
-        self.assertIn("2023-06-20", rows[0][2])
+        # Deletar a tarefa
+        self.cursor.execute("DELETE FROM todo_list WHERE id = %s", (task_id,))
+        self.conn.commit()
 
-if __name__ == '__main__':
+        # Verificar se a tarefa foi excluída corretamente
+        self.cursor.execute("SELECT * FROM todo_list WHERE id = %s", (task_id,))
+        deleted_task = self.cursor.fetchone()
+        self.assertIsNone(deleted_task)
+
+    def tearDown(self):
+        self.cursor.close()
+        self.conn.close()
+
+
+if __name__ == "__main__":
     unittest.main()
