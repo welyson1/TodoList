@@ -1,1 +1,2 @@
 pyinstaller
+psycopg2
