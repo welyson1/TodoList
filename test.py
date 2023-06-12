@@ -2,7 +2,6 @@ import datetime
 import unittest
 import psycopg2
 
-
 class TestTaskApp(unittest.TestCase):
 
     def setUp(self):
