@@ -2,7 +2,7 @@ import tkinter as tk
 import psycopg2
 from tkinter import messagebox
 
-# Para criar a tabela uso o codigo abaixo
+# Para criar a tabela no suprabase use o codigo abaixo
 # CREATE TABLE todo_list (
 #   id SERIAL PRIMARY KEY,
 #   task_name VARCHAR(255) NOT NULL,
@@ -21,11 +21,11 @@ class TaskApp(tk.Frame):
     self.master.geometry("661x600")
 
     self.conn = psycopg2.connect(
-      # Coloque as credenciais do banco de dados postgres aqui
-      host="db.dfmqkzxfikspeqlukshk.supabase.co",
+      # Coloque as credenciais do banco de dados postgres suprabase aqui
+      host="db.yathucylvsjqreyzmqlf.supabase.co",
       database="postgres",
       user="postgres",
-      password="SYt5A0lRZ7d9LgCV"
+      password="p3lYGX5VAtixx9qS"
     )
     self.cursor = self.conn.cursor()       
     self.create_widgets()
