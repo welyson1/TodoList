@@ -5,7 +5,7 @@
 O aplicativo de Lista de Tarefas é uma interface gráfica de usuário (GUI) desenvolvida em Python utilizando Tkinter e PostgreSQL do Supabase. O Supabase fornece um sistema de gerenciamento de banco de dados PostgreSQL totalmente gerenciado, trazendo facilidade de uso e recursos avançados para a aplicação. Este aplicativo permite aos usuários adicionar, visualizar, editar e excluir tarefas de uma lista. Cada tarefa possui atributos como nome, data de vencimento, prioridade e status de conclusão (este último ainda não implementado).
 
 ## Captura de tela da interface
-
+![Texto alternativo](https://raw.githubusercontent.com/welyson1/TodoList/projeto-arquitetura-software/img/Telav2.png)
 
 ## Bibliotecas
 
